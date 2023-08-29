@@ -4,12 +4,20 @@
 
 namespace snake
 {
-
-    class EnumNoMatchException : public std::invalid_argument
+    class SnakeError : public std::runtime_error
     {
     public:
-        explicit EnumNoMatchException(const std::string &message) : std::invalid_argument(message) {}
-        explicit EnumNoMatchException(const char *message) : std::invalid_argument(message) {}
+        using std::runtime_error::runtime_error;
+    };
+    class EnumNoMatchException : public SnakeError
+    {
+    public:
+        using SnakeError::SnakeError;
+    };
+    class InvalidEnvironmentException : public SnakeError
+    {
+    public:
+        using SnakeError::SnakeError;
     };
 }
 #endif
