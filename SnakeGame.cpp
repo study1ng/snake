@@ -12,7 +12,7 @@
 namespace snake
 {
     using namespace math_expansion;
-    SnakeGame::SnakeGame(Screen &screen) : snake(), map(), screen(&screen), bait(0, 0)
+    SnakeGame::SnakeGame(Screen &screen, SnakeMap &map, double speed) : snake(), map(map), screen(&screen), bait(0, 0), speed(speed), sleep_time(500 / exp(0.5 * speed))
     {
         init();
     }
@@ -100,13 +100,15 @@ namespace snake
     void SnakeGame::draw()
     {
         screen->draw(map);
+        screen->show_information(*this);
     }
 
     void SnakeGame::sleep()
     {
         // 500 * exp(1.2 * speed)
-        std::this_thread::sleep_for(std::chrono::milliseconds((int)(500 / exp(0.5 * speed))));
+        std::this_thread::sleep_for(std::chrono::milliseconds((int)sleep_time));
     }
+
     void SnakeGame::ChangeDirection(Direction direction)
     {
         if (direction != Direction::opposite((Direction)snake.front().accessYX(map)))
@@ -136,12 +138,6 @@ namespace snake
         case 'q':
             end();
             exit(0);
-        case 'f':
-            speed++;
-            break;
-        case 's':
-            speed--;
-            break;
         default:
             break;
         }

@@ -9,7 +9,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/kato/snake/snake",
-            "args": [],
+            "args": [
+                "-s",
+                "0.0",
+            ],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],

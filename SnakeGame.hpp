@@ -6,12 +6,12 @@
 #include <memory>
 namespace snake
 {
-
+    class Screen;
     class SnakeGame
     {
     public:
         /// @brief Construct a new Snake Game object
-        SnakeGame(Screen& screen);
+        SnakeGame(Screen &screen, SnakeMap &map, double speed);
 
         void init();
         void end();
@@ -32,11 +32,12 @@ namespace snake
 
     private:
         Snake snake;
-        SnakeMap map;
+        SnakeMap &map;
         std::unique_ptr<Screen> screen;
         Coordinates<> bait;
-        int speed = 0;
+        const double speed;
         Direction direction = Direction::RIGHT;
+        double sleep_time;
     };
 } // namespace snake
 #endif // GAME_HPP
